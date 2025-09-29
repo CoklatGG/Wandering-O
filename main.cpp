@@ -50,11 +50,13 @@ int main(){
                     std::cout << 'O';
                 }
                 else {
-                    std::cout << ground[x][y];
+                    std::cout << ground[y][x];
                 }
             }
             std::cout << std::endl;
         }
+        std::cout << player.location.x << ", " << player.location.y;
+        // std::cout << std::endl << ground[player.location.x + 1][player.location.y];
         int key = getch();
         switch(key) {
             case 92:
@@ -63,25 +65,51 @@ int main(){
             case 224:
                 int direction = getch();
                 switch(direction) {
-                    case 72:
-                        if (ground[player.location.x][player.location.y - 1] == ' ') {
-                            player.location.y++;
-                        }
-                    case 77:
-                        if (ground[player.location.x + 1][player.location.y] == ' ') {
-                            player.location.x++;
-                        }
-                    case 75:
-                        if (ground[player.location.x - 1][player.location.y] == ' ') {
-                            player.location.x--;
-                        }
-                    case 80:
-                        if (ground[player.location.x][player.location.y + 1] == ' ') {
+                    case 72: {
+                        char target = ground[player.location.y - 1][player.location.x];
+                        if (target == ' ') {
                             player.location.y--;
                         }
+                        else if (target == 'F') {
+                            playing = false;
+                        }
+                        break;
+                    }
+                    case 75: {
+                        char target = ground[player.location.y][player.location.x - 1];
+                        if (target == ' ') {
+                            player.location.x--;
+                        }
+                        else if (target == 'F') {
+                            playing = false;
+                        }
+                        break;
+                    }
+                    case 77: {
+                        char target = ground[player.location.y][player.location.x + 1];
+                        if (target == ' ') {
+                            player.location.x++;
+                        }
+                        else if (target == 'F') {
+                            playing = false;
+                        }
+                        break;
+                    }
+                    case 80: {
+                        char target = ground[player.location.y + 1][player.location.x];
+                        if (target == ' ') {
+                            player.location.y++;
+                        }
+                        else if (target == 'F') {
+                            playing = false;
+                        }
+                        break;
+                    }
                 }
         }
+        system("cls");
     }
+    std::cout << "YOU WIN!!";
     return 0;
 }
 /*
